@@ -1,8 +1,8 @@
 import cv2
 print("Package Imported")
 
-"""""
-#********************* IMPORT IMAGE ********************
+
+#********************* READ IMAGE ********************
 
 img = cv2.imread("Images/lenna.png")
 
@@ -19,7 +19,7 @@ while True:
     if cv2.waitKey(1) & 0XFF ==ord('q'):
         break
 
-"""""
+
 #********************* READ WEBCAM ********************
 
 WebcamVideo = cv2.VideoCapture(0)

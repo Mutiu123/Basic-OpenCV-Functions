@@ -22,6 +22,14 @@ cv2.imwrite("Results/Blurred_image.jpg", imgBlurred)
 
 
 
+#**************** Image Resizing ********************
+imgResized = cv2.resize(img, (320, 320))
+
+# Display the resized image
+cv2.imshow("Resized image", imgResized)
+# Save the reuslt
+cv2.imwrite("Results/Resized_image.jpg", imgResized)
+
 
 
 

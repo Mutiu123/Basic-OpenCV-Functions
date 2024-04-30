@@ -32,6 +32,27 @@ cv2.imwrite("Results/Resized_image.jpg", imgResized)
 
 
 
+#**************** Image Rotation ********************
+
+#Get image height and width
+(h, w) = img.shape[:2]
+#Compute the center of the image
+center = (w/2, h/2)
+
+#perform rotation
+mg = cv2.getRotationMatrix2D(center, 45, 1.0)
+rotated_image = cv2.warpAffine(img, mg, (w, h))
+
+# Display the rotated image
+cv2.imshow("Rotated image", rotated_image)
+# Save the reuslt
+cv2.imwrite("Results/Rotated_image.jpg", rotated_image)
+
+
+
+
+
+
 
 
 

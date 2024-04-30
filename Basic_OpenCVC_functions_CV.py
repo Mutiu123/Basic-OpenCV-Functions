@@ -63,6 +63,17 @@ cv2.imshow("Thresholded image", thresh)
 cv2.imwrite("Results/Thresholded_image.jpg", thresh)
 
 
+#**************** Edge Detection ********************
+
+# Apply canny edge detection
+edge = cv2.Canny(img, 30, 100)
+
+# Display the edge
+cv2.imshow("Detected Edge", edge)
+# Save the reuslt
+cv2.imwrite("Results/Edge_detection Image.jpg", edge)
+
+
 
 
 

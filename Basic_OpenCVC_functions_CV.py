@@ -14,8 +14,8 @@ imgGray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
 cv2.imwrite("Results/GraySca_image.jpg", imgGray)
 
 
-#**************** Image Blurring ********************
 
+#**************** Image Blurring ********************
 # Apply Gaussian blur
 imgBlurred = cv2.GaussianBlur(img, (11, 11), 0)
 
@@ -38,7 +38,6 @@ cv2.imwrite("Results/Resized_image.jpg", imgResized)
 
 
 #**************** Image Rotation ********************
-
 #Get image height and width
 (h, w) = img.shape[:2]
 #Compute the center of the image
@@ -53,10 +52,14 @@ rotated_image = cv2.warpAffine(img, mg, (w, h))
 # Save the reuslt
 cv2.imwrite("Results/Rotated_image.jpg", rotated_image)
 
-#**************** Image Thresholding ********************
 
+
+
+#**************** Image Thresholding ********************
 # Apply image thresholding
-reth, thresh = cv2.threshold(img, 120, 255, cv2.THRESH_BINARY)
+threshold_lower = 110
+threshold_upper = 225
+reth, thresh = cv2.threshold(imgGray, threshold_lower, threshold_upper, cv2.THRESH_BINARY)
 
 # Display the threshold image
 #cv2.imshow("Thresholded image", thresh)
@@ -64,26 +67,29 @@ reth, thresh = cv2.threshold(img, 120, 255, cv2.THRESH_BINARY)
 cv2.imwrite("Results/Thresholded_image.jpg", thresh)
 
 
-#**************** Edge Detection ********************
 
+
+#**************** Edge Detection ********************
 # Apply canny edge detection
-edge = cv2.Canny(img, 30, 100)
+edges = cv2.Canny(imgGray, 30, 100)
 
 # Display the edge
-#cv2.imshow("Detected Edge", edge)
+#cv2.imshow("Detected Edge", edges)
+
 # Save the reuslt
-cv2.imwrite("Results/Edge_detection Image.jpg", edge)
+cv2.imwrite("Results/Edge_detection Image.jpg", edges)
+
+
 
 #**************** Image Filtering ********************
-
 # Create a kernel
 Kernel = np.ones((5,5), np.float32)/25
 
 # Apply the kernel to the image
-filteredImage = cv2.filter2D(img, -0, Kernel)
+filteredImage = cv2.filter2D(img, -1, Kernel)
 
 # Display the edge
-cv2.imshow("Filtered Image", filteredImage)
+#cv2.imshow("Filtered Image", filteredImage)
 # Save the reuslt
 cv2.imwrite("Results/Filtered_Image.jpg", filteredImage)
 
@@ -111,7 +117,7 @@ img2 = cv2.drawMatches(img, kp1, img1, kp2, matches[:0], None, flags=2)
 
 
 # Display the edge
-cv2.imshow("Feature Matching", img2)
+#cv2.imshow("Feature Matching", img2)
 # Save the reuslt
 cv2.imwrite("Results/Feature_Matching.jpg", img2)
 
@@ -119,13 +125,85 @@ cv2.imwrite("Results/Feature_Matching.jpg", img2)
 
 
 
+#**************** Image dilation and Erosion ********************
+# dilation and erosion are morphological operation that are useful in removing noise such as small
+# holes or black sport from binary image
+
+# Apply image thresholding
+threshold_lower = 127
+threshold_upper = 225
+reth, binary_image = cv2.threshold(imgGray, threshold_lower, threshold_upper, cv2.THRESH_BINARY)
+
+#Define the structuring element
+kernel = np.ones((5,5), np.uint8)
+
+# perform dialation
+dialated_image = cv2.dilate(binary_image, kernel, iterations=1)
+
+# perform erosion
+eroded_image = cv2.erode(binary_image, kernel, iterations=1)
+
+# Display the dialated and eroded image
+#cv2.imshow("Dialated image", dialated_image)
+#cv2.imshow("Eroded image", eroded_image)
+
+# Save the reuslt
+cv2.imwrite("Results/dialated_image.jpg", dialated_image)
+cv2.imwrite("Results/eroded_image.jpg", eroded_image)
 
 
 
 
+#**************** Image Pyramids ********************
+# image pyramids fnd application in up or down image scaling, blending,
+# reconstruction and texture synthesis.
+
+#create Gaussian pyramid
+Mg = img.copy()
+mgs = [Mg]
+for i in range(8):
+    Mg = cv2.pyrDown(Mg)
+    mgs.append(Mg)
+
+# Display the image in the Gaussian pyramid
+#for i in range(4):
+    #cv2.imshow("Gaussian pyramind Level" + str(i), mgs[i])
+
+
+#**************** Image Gradients ********************
+# Image gradients are useful for the edges image highlighting
+
+#Calculates the x and y gradients using Sobel operator
+gradX = cv2.Sobel(imgGray, cv2.CV_64F, 1, 0, ksize=5)
+gradY = cv2.Sobel(imgGray, cv2.CV_64F, 1, 0, ksize=5)
+
+# Display the x and y gradients
+#cv2.imshow("gradients X", gradX)
+#cv2.imshow("gradients Y", gradY)
+# Save the reuslt
+cv2.imwrite("Results/X_Gradient_Image.jpg", gradX)
+cv2.imwrite("Results/Y_Gradient_Image.jpg", gradY)
+
+
+#**************** Histogram Equalization ********************
+# Histogram equalization is useful for improving the contrast of the images
+
+#Apply histogram equalization
+his_equalised = cv2.equalizeHist(imgGray)
+
+# Display equalised image
+cv2.imshow("Equalised Image", his_equalised)
+# Save the reuslt
+cv2.imwrite("Results/Equalised_Image.jpg", his_equalised)
 
 
 
+
+#**************** Histogram Equalization ********************
+# Histogram equalization is useful for improving the contrast of the images
+
+#Apply histogram equalization
+his_equalised = cv2.equalizeHist(imgGray)
 
 
 

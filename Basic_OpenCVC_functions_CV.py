@@ -71,13 +71,13 @@ cv2.imwrite("Results/Thresholded_image.jpg", thresh)
 
 #**************** Edge Detection ********************
 # Apply canny edge detection
-edges = cv2.Canny(imgGray, 30, 100)
+CamyEdges = cv2.Canny(imgGray, 30, 100)
 
 # Display the edge
-#cv2.imshow("Detected Edge", edges)
+#cv2.imshow("Detected Edge", CamyEdges)
 
 # Save the reuslt
-cv2.imwrite("Results/Edge_detection Image.jpg", edges)
+cv2.imwrite("Results/Edge_detection Image.jpg", CamyEdges)
 
 
 
@@ -130,22 +130,22 @@ cv2.imwrite("Results/Feature_Matching.jpg", img2)
 # holes or black sport from binary image
 
 # Apply image thresholding
-threshold_lower = 127
-threshold_upper = 225
-reth, binary_image = cv2.threshold(imgGray, threshold_lower, threshold_upper, cv2.THRESH_BINARY)
+threshold_lower = 75
+threshold_upper = 100
+#reth, binary_image = cv2.threshold(edges, threshold_lower, threshold_upper, cv2.THRESH_BINARY)
 
 #Define the structuring element
 kernel = np.ones((5,5), np.uint8)
 
 # perform dialation
-dialated_image = cv2.dilate(binary_image, kernel, iterations=1)
+dialated_image = cv2.dilate(CamyEdges, kernel, iterations=1)
 
 # perform erosion
-eroded_image = cv2.erode(binary_image, kernel, iterations=1)
+eroded_image = cv2.erode(dialated_image, kernel, iterations=1)
 
 # Display the dialated and eroded image
-#cv2.imshow("Dialated image", dialated_image)
-#cv2.imshow("Eroded image", eroded_image)
+cv2.imshow("Dialated image", dialated_image)
+cv2.imshow("Eroded image", eroded_image)
 
 # Save the reuslt
 cv2.imwrite("Results/dialated_image.jpg", dialated_image)

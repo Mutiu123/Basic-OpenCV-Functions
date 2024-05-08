@@ -29,12 +29,22 @@ cv2.imwrite("Results/Blurred_image.jpg", imgBlurred)
 #**************** Image Resizing ********************
 # Resize the image
 imgResized = cv2.resize(img, (320, 320))
-
+print(img.shape)
+print(imgResized.shape)
 # Display the resized image
 #cv2.imshow("Resized image", imgResized)
 # Save the reuslt
 cv2.imwrite("Results/Resized_image.jpg", imgResized)
 
+
+#**************** Image Cropping ********************
+# Crop the image
+imgCropped = img[180:450,50:450]
+
+# Display the resized image
+cv2.imshow("Cropped image", imgCropped)
+# Save the reuslt
+cv2.imwrite("Results/Cropped_image.jpg", imgCropped)
 
 
 #**************** Image Rotation ********************
@@ -144,8 +154,8 @@ dialated_image = cv2.dilate(CamyEdges, kernel, iterations=1)
 eroded_image = cv2.erode(dialated_image, kernel, iterations=1)
 
 # Display the dialated and eroded image
-cv2.imshow("Dialated image", dialated_image)
-cv2.imshow("Eroded image", eroded_image)
+#cv2.imshow("Dialated image", dialated_image)
+#cv2.imshow("Eroded image", eroded_image)
 
 # Save the reuslt
 cv2.imwrite("Results/dialated_image.jpg", dialated_image)
@@ -192,7 +202,7 @@ cv2.imwrite("Results/Y_Gradient_Image.jpg", gradY)
 his_equalised = cv2.equalizeHist(imgGray)
 
 # Display equalised image
-cv2.imshow("Equalised Image", his_equalised)
+#cv2.imshow("Equalised Image", his_equalised)
 # Save the reuslt
 cv2.imwrite("Results/Equalised_Image.jpg", his_equalised)
 
